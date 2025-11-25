@@ -8,24 +8,24 @@ fn main() {
     // Generate a random secret number between 1 and 100
     let secret_number = rand::thread_rng().gen_range(1..=100);
 
-    // Create a mutable String to hold the user's input
-    let mut guess = String::new();
+    println!("The secret number is: {}", secret_number);
 
     // Read the user's input from standard input
 
     loop {
         println!("Please enter your guess:");
 
+        // Create a mutable String to hold the user's input
+        let mut guess = String::new();
+
         io::stdin()
             .read_line(&mut guess)
             .expect("Failed to read line");
 
-        let guess: u32 = match guess.trim().parse(){
-            Ok(num) => num,
-            Err(_) => {
-                continue;
-            }
-        };
+        let guess: u32 = guess.trim().parse().expect("Please type a number!");
+
+        println!("You guessed: {guess}");
+
         match guess.cmp(&secret_number) {
             Ordering::Less => println!("Too small!"),
             Ordering::Greater => println!("Too big!"),
@@ -37,5 +37,4 @@ fn main() {
     }
 
     // println!("You guessed: {}", guess);
-    // println!("The secret number is: {}", secret_number);
 }
